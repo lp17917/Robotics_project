@@ -30,7 +30,10 @@ void setup() {
   leftstamp = get_e0;
   rightstamp = get_e1;
   left = 30;
+  right = 30;
   fin = false;
+  setupEncoder0();
+  setupEncoder1();
   sensor.init();
   sensor.configureDefault();
   sensor.setScaling(SCALING);
@@ -40,6 +43,7 @@ void setup() {
 void loop() {
 
   if (sensor.readRangeSingleMillimeters() > 100 && !fin){
+      right = drive_straight(leftstamp,rightstamp, left);
       left_motor.speedchange(left);
       right_motor.speedchange(right);
   }
@@ -48,5 +52,9 @@ void loop() {
      left_motor.speedchange(0);
      right_motor.speedchange(0);
   }
+  Serial.print(count_e0);
+  Serial.print(",");
+  Serial.print(count_e1);
+  Serial.println();
 
 }
