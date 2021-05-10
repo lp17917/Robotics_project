@@ -15,8 +15,10 @@ volatile bool oldE0_A;  // used by encoder to remember prior state of A
 volatile bool oldE0_B;  // used by encoder to remember prior state of B
 
 
-int leftspeed;
-int rightspeed;
+
+
+float leftspeed;
+float rightspeed;
 bool leftfin;
 bool rightfin;
 
@@ -56,7 +58,7 @@ ISR( INT6_vect ) {
   // against the lecture slides.
   if( state == 1 ) {           // row 1 from table
     count_e1 = count_e1 - 1;
-
+    
   } else if( state == 2 ) {    // row 2 from table
     count_e1 = count_e1 + 1;
 
@@ -163,6 +165,7 @@ ISR( PCINT0_vect ) {
   // Save current state as old state for next call.
   oldE0_A = newE0_A;
   oldE0_B = newE0_B; 
+  
 }
 
 
@@ -297,4 +300,3 @@ int drive_straight(int leftstamp, int rightstamp, int left){
     }
     return rightspeed;
 }
-
